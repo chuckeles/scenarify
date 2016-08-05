@@ -7,5 +7,12 @@
     "scenario",
     "automation"
   ],
-  "author": "Martin Chuckeles"
+  "author": "Martin Chuckeles",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "express": "^4.14.0",
+    "kue": "^0.11.1",
+    "kue-ui": "^0.1.0",
+    "yargs": "^4.8.1"
+  }
 }
