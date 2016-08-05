@@ -7,9 +7,9 @@ const Router = require('express').Router;
 
 
 /**
- * Set up the routes.
+ * App router.
  */
 module.exports = Router()
-    .get('/', function appGetRoute(req, res) {
+    .get('/', function getIndex(req, res) {
         res.send('app is not created yet');
     });

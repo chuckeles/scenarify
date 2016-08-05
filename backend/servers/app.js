@@ -8,6 +8,7 @@ const chalk = require('chalk');
 const express = require('express');
 
 const appRouter = require('./app-routes');
+const apiRouter = require('./app-api');
 
 
 /**
@@ -25,6 +26,7 @@ exports.start = function startApp(port) {
     });
 
     app.use(appRouter);
+    app.use('/api', apiRouter);
 
     app.listen(port, function appListenCallback() {
         console.log(chalk.blue('App server'), 'listening on port', port);
