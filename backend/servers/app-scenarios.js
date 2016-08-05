@@ -5,23 +5,59 @@
 
 const Router = require('express').Router;
 
+const db = require('../databases/mongo').db;
+const scenarios = db.collection('scenarios');
+
 
 /**
  * Scenarios router.
  */
 module.exports = Router()
-    .get('/', function getScenarios(req, res) {
-        res.send('list of all scenarios');
+    .get('/', (req, res) => {
+        scenarios
+            .find({})
+            .toArray()
+            .then(data => res.send(data))
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
     })
-    .get('/:id', function getScenario(req, res) {
-        res.send('scenario ' + req.params.id);
+    .get('/:id', (req, res) => {
+        scenarios
+            .find({ _id: req.params.id })
+            .limit(1)
+            .next()
+            .then(data => res.send(data))
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
     })
-    .post('/', function createScenario(req, res) {
-        res.send('created new scenario');
+    .post('/', (req, res) => {
+        scenarios
+            .insertOne(req.body)
+            .then(data => res.send(data.insertedId))
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
     })
-    .put('/:id', function updateScenario(req, res) {
-        res.send('updated scenario ' + req.params.id)
+    .put('/:id', (req, res) => {
+        scenarios
+            .updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.status(200).send())
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
     })
-    .delete('/:id', function deleteScenario(req, res) {
-        res.send('deleted scenario ' + req.params.id)
+    .delete('/:id', (req, res) => {
+        scenarios
+            .deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).send())
+            .catch(err => {
+                console.error(err);
+                res.status(500).send(err);
+            });
     });

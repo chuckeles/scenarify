@@ -6,18 +6,13 @@
 
 const yargs = require('yargs');
 
-const databases = require('./databases/databases');
-const servers = require('./servers/servers');
-
 
 /**
  * Set up command line.
  */
 const argv = yargs
     .usage('$0 [options]')
-    .version(function() {
-        return require('../package').version;
-    })
+    .version(() => require('../package').version)
     .help('help')
     .option('app', {
         describe: 'port for the app',
@@ -40,10 +35,12 @@ const argv = yargs
 /**
  * Connect the database clients.
  */
-databases.connectAll();
-
-
-/**
- * Start the express servers.
- */
-servers.startAll(argv);
+require('./databases/databases')
+    .connectAll()
+    .then(() => {
+        /**
+         * Start the express servers.
+         */
+        require('./servers/servers')
+            .startAll(argv);
+    });

@@ -14,12 +14,12 @@ const apiRouter = require('./app-api');
 /**
  * Start the app server on a port.
  */
-exports.start = function startApp(port) {
+exports.start = port => {
 
     let app = express();
 
     app.use(bodyParser.json());
-    app.use(function logger(req, res, next) {
+    app.use((req, res, next) => {
         console.log('App server request', req.method, req.path);
 
         next();
@@ -28,7 +28,7 @@ exports.start = function startApp(port) {
     app.use(appRouter);
     app.use('/api', apiRouter);
 
-    app.listen(port, function appListenCallback() {
+    app.listen(port, () => {
         console.log(chalk.blue('App server'), 'listening on port', port);
     });
 

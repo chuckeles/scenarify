@@ -10,7 +10,7 @@ const app = require('./app');
 /**
  * Starts all Express servers.
  */
-exports.startAll = function startAllServers(argv) {
+exports.startAll = (argv) => {
 
     console.log('Starting the servers');
 

@@ -17,12 +17,11 @@ const url = 'mongodb://localhost:27017/scenarify';
  * Connect to the database.
  */
 exports.connect = function connectMongo() {
-    mongodb.MongoClient.connect(url, function (err, db) {
-        if (err) {
-            throw err;
-        }
-
-        console.log('Connected to the', chalk.blue('Mongo database'));
-        exports.db = db;
-    })
+    return mongodb
+        .MongoClient
+        .connect(url)
+        .then(db => {
+            console.log('Connected to the', chalk.blue('Mongo database'));
+            exports.db = db;
+        })
 };
