@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const express = require('express');
 
+const appRouter = require('./app-routes');
+
 
 /**
  * Start the app server on a port.
@@ -22,9 +24,7 @@ exports.start = function startApp(port) {
         next();
     });
 
-    app.get('/', function getIndex(req, res) {
-        res.send('the app is not important yet');
-    });
+    app.use(appRouter);
 
     app.listen(port, function appListenCallback() {
         console.log(chalk.blue('App server'), 'listening on port', port);

@@ -4,8 +4,9 @@
  */
 
 
-const servers = require('./servers/servers');
 const yargs = require('yargs');
+
+const servers = require('./servers/servers');
 
 
 /**
