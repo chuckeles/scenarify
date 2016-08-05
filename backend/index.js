@@ -6,6 +6,7 @@
 
 const yargs = require('yargs');
 
+const databases = require('./databases/databases');
 const servers = require('./servers/servers');
 
 
@@ -34,6 +35,12 @@ const argv = yargs
     .alias('w', 'webhooks')
     .wrap(null)
     .argv;
+
+
+/**
+ * Connect the database clients.
+ */
+databases.connectAll();
 
 
 /**
