@@ -5,7 +5,7 @@
 
 const Router = require('express').Router;
 
-const scenarioRouter = require('./app-scenarios');
+const scenarioRouter = require('./scenarios');
 
 
 /**

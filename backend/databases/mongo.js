@@ -4,7 +4,7 @@
 
 
 const chalk = require('chalk');
-const mongodb = require('mongodb');
+const mongoose = require('mongoose');
 
 
 /**
@@ -14,11 +14,16 @@ const url = 'mongodb://localhost:27017/scenarify';
 
 
 /**
+ * Use promises.
+ */
+mongoose.Promise = Promise;
+
+
+/**
  * Connect to the database.
  */
 exports.connect = () => {
-    return mongodb
-        .MongoClient
+    return mongoose
         .connect(url)
         .then(db => {
             console.log('Connected to the', chalk.blue('Mongo database'));
@@ -32,6 +37,18 @@ exports.connect = () => {
 
 
 /**
+ * Export model.
+ */
+exports.model = mongoose.model;
+
+
+/**
+ * Export the Schema.
+ */
+exports.Schema = mongoose.Schema;
+
+
+/**
  * Export the ObjectId.
  */
-exports.ObjectId = mongodb.ObjectId;
+exports.ObjectId = mongoose.ObjectId;

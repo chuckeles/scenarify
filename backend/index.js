@@ -4,6 +4,7 @@
  */
 
 
+const chalk = require('chalk');
 const yargs = require('yargs');
 
 
@@ -30,6 +31,16 @@ const argv = yargs
     .alias('w', 'webhooks')
     .wrap(null)
     .argv;
+
+
+/**
+ * Set up unhandled rejection tracking.
+ */
+process.on('unhandledRejection', (reason, promise) => {
+    console.error(chalk.red('Possibly unhandled rejection!'));
+    console.error(chalk.red(reason));
+    console.error(promise);
+});
 
 
 /**

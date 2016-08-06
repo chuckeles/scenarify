@@ -5,80 +5,43 @@
 
 const Router = require('express').Router;
 
-const mongo = require('../databases/mongo');
-
 
 /**
  * Create a CRUD router based on a named collection.
  */
-exports.create = (name, validator) => {
+exports.create = (Model) => {
 
-    if (validator) {
-        mongo.db
-            .listCollections()
-            .toArray()
-            .then(data => {
-                if (data.length === 0) {
-                    mongo.db.createCollection(name, { validator })
-                }
-                else {
-                    mongo.db.runCommand({
-                        collMod: name,
-                        validator
-                    });
-                }
-            });
-    }
-
-    const collection = mongo.db.collection(name);
     return Router()
         .get('/', (req, res) => {
-            collection
+            Model
                 .find({})
-                .toArray()
                 .then(data => res.send(data))
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send(err);
-                });
+                .catch(err => res.status(400).send(err));
         })
         .get('/:id', (req, res) => {
-            collection
-                .find({ _id: mongo.ObjectId(req.params.id) })
-                .limit(1)
-                .next()
+            Model
+                .findOne({ id: req.params.id })
                 .then(data => res.send(data))
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send(err);
-                });
+                .catch(err => res.status(400).send(err));
         })
         .post('/', (req, res) => {
-            collection
-                .insertOne(req.body)
-                .then(data => res.send(data.insertedId))
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send(err);
-                });
+            var instance = new Model(req.body);
+            instance
+                .save()
+                .then(data => res.send(data))
+                .catch(err => res.status(400).send(err));
         })
         .put('/:id', (req, res) => {
-            collection
-                .updateOne({ _id: mongo.ObjectId(req.params.id) }, req.body)
-                .then(() => res.status(200).send())
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send(err);
-                });
+            Model
+                .findOneAndUpdate({ id: req.params.id })
+                .then(data => res.send(data))
+                .catch(err => res.status(400).send(err));
         })
         .delete('/:id', (req, res) => {
-            collection
-                .deleteOne({ _id: mongo.ObjectId(req.params.id) })
-                .then(() => res.status(200).send())
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send(err);
-                });
+            Model
+                .findOneAndRemove({ id: req.params.id })
+                .then(() => res.send())
+                .catch(err => res.status(400).send(err));
         });
 
 };

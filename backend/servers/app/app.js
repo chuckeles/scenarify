@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const express = require('express');
 
-const appRouter = require('./app-routes');
-const apiRouter = require('./app-api');
+const appRouter = require('./routes');
+const apiRouter = require('./api');
 
 
 /**
@@ -16,7 +16,7 @@ const apiRouter = require('./app-api');
  */
 exports.start = port => {
 
-    let app = express();
+    const app = express();
 
     app.use(bodyParser.json());
     app.use((req, res, next) => {
