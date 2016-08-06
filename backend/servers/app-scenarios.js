@@ -5,8 +5,8 @@
 
 const Router = require('express').Router;
 
-const db = require('../databases/mongo').db;
-const scenarios = db.collection('scenarios');
+const mongo = require('../databases/mongo');
+const scenarios = mongo.db.collection('scenarios');
 
 
 /**
@@ -25,7 +25,7 @@ module.exports = Router()
     })
     .get('/:id', (req, res) => {
         scenarios
-            .find({ _id: req.params.id })
+            .find({ _id: mongo.ObjectId(req.params.id) })
             .limit(1)
             .next()
             .then(data => res.send(data))
@@ -45,7 +45,7 @@ module.exports = Router()
     })
     .put('/:id', (req, res) => {
         scenarios
-            .updateOne({ _id: req.params.id }, req.body)
+            .updateOne({ _id: mongo.ObjectId(req.params.id) }, req.body)
             .then(() => res.status(200).send())
             .catch(err => {
                 console.error(err);
@@ -54,7 +54,7 @@ module.exports = Router()
     })
     .delete('/:id', (req, res) => {
         scenarios
-            .deleteOne({ _id: req.params.id })
+            .deleteOne({ _id: mongo.ObjectId(req.params.id) })
             .then(() => res.status(200).send())
             .catch(err => {
                 console.error(err);
