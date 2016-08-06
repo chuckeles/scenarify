@@ -20,7 +20,7 @@ exports.create = (Model) => {
         })
         .get('/:id', (req, res) => {
             Model
-                .findOne({ id: req.params.id })
+                .findById(req.params.id)
                 .then(data => res.send(data))
                 .catch(err => res.status(400).send(err));
         })
@@ -33,13 +33,13 @@ exports.create = (Model) => {
         })
         .put('/:id', (req, res) => {
             Model
-                .findOneAndUpdate({ id: req.params.id })
-                .then(data => res.send(data))
+                .findByIdAndUpdate(req.params.id, req.body)
+                .then(() => res.send())
                 .catch(err => res.status(400).send(err));
         })
         .delete('/:id', (req, res) => {
             Model
-                .findOneAndRemove({ id: req.params.id })
+                .findByIdAndRemove(req.params.id)
                 .then(() => res.send())
                 .catch(err => res.status(400).send(err));
         });

@@ -54,4 +54,7 @@ require('./databases/databases')
          */
         require('./servers/servers')
             .startAll(argv);
+    })
+    .catch(() => {
+        console.error(chalk.red('Databases could not connect'));
     });

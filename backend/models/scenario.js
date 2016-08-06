@@ -3,10 +3,21 @@
  */
 
 
-const mongo = require('../databases/mongo');
+const mongoose = require('mongoose');
 
 
-const schema = mongo.Schema({
-    name: String
+/**
+ * Scenario schema.
+ */
+const schema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    }
 });
-module.exports = mongo.model('Scenario', schema);
+
+
+/**
+ * Export the model.
+ */
+module.exports = mongoose.model('Scenario', schema);

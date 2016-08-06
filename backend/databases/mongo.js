@@ -32,23 +32,7 @@ exports.connect = () => {
         .catch(err => {
             console.error(chalk.red('Could not connect to the Mongo database'));
             console.error(err);
+
+            return Promise.reject(err);
         });
 };
-
-
-/**
- * Export model.
- */
-exports.model = mongoose.model;
-
-
-/**
- * Export the Schema.
- */
-exports.Schema = mongoose.Schema;
-
-
-/**
- * Export the ObjectId.
- */
-exports.ObjectId = mongoose.ObjectId;
