@@ -9,4 +9,7 @@ const crudRouter = require('./crud-router');
 /**
  * Make and export the router.
  */
-module.exports = crudRouter.create('scenarios');
+module.exports = crudRouter
+    .create('scenarios', {
+        name: { $type: 'string' }
+    });

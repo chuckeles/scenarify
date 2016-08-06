@@ -11,10 +11,26 @@ const mongo = require('../databases/mongo');
 /**
  * Create a CRUD router based on a named collection.
  */
-exports.create = name => {
+exports.create = (name, validator) => {
+
+    if (validator) {
+        mongo.db
+            .listCollections()
+            .toArray()
+            .then(data => {
+                if (data.length === 0) {
+                    mongo.db.createCollection(name, { validator })
+                }
+                else {
+                    mongo.db.runCommand({
+                        collMod: name,
+                        validator
+                    });
+                }
+            });
+    }
 
     const collection = mongo.db.collection(name);
-
     return Router()
         .get('/', (req, res) => {
             collection
