@@ -21,7 +21,14 @@ exports.create = (Model) => {
         .get('/:id', (req, res) => {
             Model
                 .findById(req.params.id)
-                .then(data => res.send(data))
+                .then(data => {
+                    if (data) {
+                        res.send(data);
+                    }
+                    else {
+                        res.status(404).send();
+                    }
+                })
                 .catch(err => res.status(400).send(err));
         })
         .post('/', (req, res) => {
