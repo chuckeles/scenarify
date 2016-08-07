@@ -1,8 +1,8 @@
 {
   "name": "scenarify",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Connect and automate services.",
-  "main": "server.js",
+  "main": "backend/index.js",
   "keywords": [
     "scenario",
     "automation"
