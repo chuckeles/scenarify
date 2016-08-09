@@ -13,5 +13,8 @@ const crudRouter = require('../crud-router');
 module.exports = crudRouter
     .create(Scenario, {
         created: true,
-        updated: true
+        updated: true,
+        postHook: (id) => {},
+        putHook: (id) => {},
+        deleteHook: (id) => {}
     });

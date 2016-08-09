@@ -40,7 +40,13 @@ exports.create = (Model, options = {}) => {
 
             instance
                 .save()
-                .then(data => res.send(data))
+                .then(data => {
+                    if (options.postHook) {
+                        options.postHook(data._id);
+                    }
+
+                    res.send(data);
+                })
                 .catch(err => res.status(400).send(err));
         })
         .put('/:id', (req, res) => {
@@ -50,13 +56,25 @@ exports.create = (Model, options = {}) => {
 
             Model
                 .findByIdAndUpdate(req.params.id, req.body)
-                .then(() => res.send())
+                .then(() => {
+                    if (options.putHook) {
+                        options.putHook(req.params.id);
+                    }
+
+                    res.send();
+                })
                 .catch(err => res.status(400).send(err));
         })
         .delete('/:id', (req, res) => {
             Model
                 .findByIdAndRemove(req.params.id)
-                .then(() => res.send())
+                .then(() => {
+                    if (options.deleteHook) {
+                        options.deleteHook(req.params.id);
+                    }
+
+                    res.send();
+                })
                 .catch(err => res.status(400).send(err));
         });
 
