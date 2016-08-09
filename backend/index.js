@@ -50,6 +50,12 @@ require('./databases/databases')
     .connectAll()
     .then(() => {
         /**
+         * Start the Kue workers.
+         */
+        require('./workers/workers')
+            .startAll();
+
+        /**
          * Start the express servers.
          */
         require('./servers/servers')
