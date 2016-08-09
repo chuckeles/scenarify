@@ -11,4 +11,7 @@ const crudRouter = require('../crud-router');
  * Make and export the router.
  */
 module.exports = crudRouter
-    .create(Scenario);
+    .create(Scenario, {
+        created: true,
+        updated: true
+    });

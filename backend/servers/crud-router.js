@@ -9,7 +9,7 @@ const Router = require('express').Router;
 /**
  * Create a CRUD router based on a named collection.
  */
-exports.create = (Model) => {
+exports.create = (Model, options = {}) => {
 
     return Router()
         .get('/', (req, res) => {
@@ -33,12 +33,21 @@ exports.create = (Model) => {
         })
         .post('/', (req, res) => {
             var instance = new Model(req.body);
+
+            if (options.created) {
+                instance.created = instance.updated = Date.now();
+            }
+
             instance
                 .save()
                 .then(data => res.send(data))
                 .catch(err => res.status(400).send(err));
         })
         .put('/:id', (req, res) => {
+            if (options.updated) {
+                req.body.updated = Date.now();
+            }
+
             Model
                 .findByIdAndUpdate(req.params.id, req.body)
                 .then(() => res.send())
