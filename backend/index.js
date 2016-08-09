@@ -25,6 +25,11 @@ const argv = yargs
         type: 'number',
         default: 4000
     })
+    .option('kue', {
+        describe: 'port for the Kue UI',
+        type: 'number',
+        default: 3001
+    })
     .alias('v', 'version')
     .alias('h', 'help')
     .alias('a', 'app')
@@ -46,21 +51,24 @@ process.on('unhandledRejection', (reason, promise) => {
 /**
  * Connect the database clients.
  */
-require('./databases/databases')
-    .connectAll()
-    .then(() => {
-        /**
-         * Start the Kue workers.
-         */
-        require('./workers/workers')
-            .startAll();
+const databasesPromise = require('./databases/databases').connectAll();
 
-        /**
-         * Start the express servers.
-         */
+
+/**
+ * Start the Kue workers.
+ */
+const workersPromise = require('./workers/workers').startAll(argv);
+
+
+/**
+ * Start the express servers.
+ */
+Promise
+    .all([databasesPromise, workersPromise])
+    .then(() => {
         require('./servers/servers')
             .startAll(argv);
     })
-    .catch(() => {
-        console.error(chalk.red('Databases could not connect'));
+    .catch(err => {
+        throw err;
     });

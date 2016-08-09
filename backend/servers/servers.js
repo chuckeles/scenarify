@@ -5,6 +5,7 @@
 
 
 const app = require('./app/app');
+const kue = require('./kue');
 
 
 /**
@@ -15,5 +16,6 @@ exports.startAll = (argv) => {
     console.log('Starting the servers');
 
     app.start(argv.app);
+    kue.start(argv.kue);
 
 };
