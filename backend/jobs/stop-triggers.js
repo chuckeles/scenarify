@@ -15,12 +15,17 @@ const queue = require('../workers/workers').queue;
 exports.create = (scenarioId) => {
 
     return queue
-        .create('stop-triggers', scenarioId)
+        .create('stop-triggers', { scenarioId })
         .attempts(10)
         .backoff({ type: 'exponential' })
         .save(err => {
-            console.error(chalk.red('Failed to create a stop-trigger job'));
-            console.error(err);
+            if (err) {
+                console.error(chalk.red('Failed to create a stop-trigger job'));
+                console.error(err);
+            }
+            else {
+                console.log('Added new stop-triggers job');
+            }
         });
 
 };

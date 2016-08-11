@@ -17,10 +17,6 @@ const schema = mongoose.Schema({
     created: Date,
     updated: Date,
     nodes: [{
-        id: {
-            type: Number,
-            required: true
-        },
         type: {
             type: String,
             required: true
@@ -36,12 +32,8 @@ const schema = mongoose.Schema({
         data: {}
     }],
     connections: [{
-        id: {
-            type: Number,
-            required: true
-        },
         from: {
-            id: {
+            nodeId: {
                 type: Number,
                 required: true
             },
@@ -51,7 +43,7 @@ const schema = mongoose.Schema({
             }
         },
         to: {
-            id: {
+            nodeId: {
                 type: Number,
                 required: true
             },
@@ -60,15 +52,7 @@ const schema = mongoose.Schema({
                 default: 0
             }
         }
-    }],
-    lastNodeId: {
-        type: Number,
-        default: 0
-    },
-    lastConnectionId: {
-        type: Number,
-        default: 0
-    }
+    }]
 });
 
 

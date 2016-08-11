@@ -16,12 +16,17 @@ const queue = require('../workers/workers').queue;
 exports.create = (scenarioId) => {
 
     return queue
-        .create('start-triggers', scenarioId)
+        .create('start-triggers', { scenarioId })
         .attempts(10)
         .backoff({ type: 'exponential' })
         .save(err => {
-            console.error(chalk.red('Failed to create a start-trigger job'));
-            console.error(err);
+            if (err) {
+                console.error(chalk.red('Failed to create a start-trigger job'));
+                console.error(err);
+            }
+            else {
+                console.log('Added new start-triggers job');
+            }
         });
 
 };
