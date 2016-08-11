@@ -28,6 +28,13 @@ function setUpKue() {
 
     exports.queue = kue.createQueue();
 
+    exports.queue.on('error', err => {
+        console.error(chalk.red('Error in Kue'));
+        console.error(err);
+    });
+
+    exports.queue.watchStuckJobs(1000);
+
 }
 
 
