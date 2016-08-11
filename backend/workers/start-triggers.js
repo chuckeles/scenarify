@@ -1,5 +1,5 @@
 /**
- * Thw worker that iterates all triggers in a scenario
+ * The worker that iterates all triggers in a scenario
  * and adds jobs for each trigger.
  */
 
