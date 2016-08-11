@@ -5,6 +5,9 @@
 
 const Scenario = require('../../models/scenario');
 const crudRouter = require('../crud-router');
+const startTriggersJob = require('../../jobs/start-triggers');
+const restartTriggersJob = require('../../jobs/restart-triggers');
+const stopTriggersJob = require('../../jobs/stop-triggers');
 
 
 /**
@@ -14,7 +17,7 @@ module.exports = crudRouter
     .create(Scenario, {
         created: true,
         updated: true,
-        postHook: (id) => {},
-        putHook: (id) => {},
-        deleteHook: (id) => {}
+        postHook: startTriggersJob,
+        putHook: restartTriggersJob,
+        deleteHook: stopTriggersJob
     });
