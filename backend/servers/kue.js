@@ -6,7 +6,6 @@
 const chalk = require('chalk');
 const express = require('express');
 const kue = require('kue');
-const kueUi = require('kue-ui');
 
 
 /**
@@ -16,13 +15,7 @@ exports.start = port => {
 
     const app = express();
 
-    kueUi.setup({
-        apiUrl: '/api',
-        baseURL: '/'
-    });
-
-    app.use('/', kueUi.app);
-    app.use('/api', kue.app);
+    app.use(kue.app);
 
     app.listen(port, () => {
         console.log(chalk.blue('Kue server'), 'listening on port', port);
