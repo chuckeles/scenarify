@@ -57,7 +57,7 @@ const databasesPromise = require('./databases/databases').connectAll();
 /**
  * Start the Kue workers.
  */
-const workersPromise = require('./workers/workers').startAll(argv);
+const workersPromise = require('./workers/workers').startAll();
 
 
 /**
