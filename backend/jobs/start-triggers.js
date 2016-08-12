@@ -4,43 +4,19 @@
  * jobs for them.
  */
 
-
-const chalk = require('chalk');
-
-const queue = require('./workers').queue;
 const Scenario = require('../models/scenario');
+const jobWorker = require('./job-worker-base');
 
 
 /**
- * Create the job and add it to the queue.
+ * Create the job and worker definition.
  */
-exports.create = scenarioId => {
-
-    return queue
-        .create('start-triggers', { scenarioId })
-        .attempts(10)
-        .backoff({ type: 'exponential' })
-        .save(err => {
-            if (err) {
-                console.error(chalk.red('Failed to create a start-trigger job'));
-                console.error(err);
-            }
-            else {
-                console.log('Added new start-triggers job');
-            }
-        });
-
-};
-
-
-/**
- * Register the worker.
- */
-exports.register = () => {
-
-    console.log('Registering the start-trigger worker');
-
-    queue.process('start-triggers', (job, done) => {
+module.exports = jobWorker.create(
+    'start-triggers',
+    scenarioId => {
+        return { scenarioId };
+    },
+    (job, done) => {
         job.log('Fetching the scenario');
 
         Scenario
@@ -48,15 +24,16 @@ exports.register = () => {
             .then(scenario => {
                 job.log('Adding jobs for triggers');
 
-                let nodesCount = scenario.nodes.length;
+                const nodesCount = scenario.nodes.length;
                 job.progress(0, nodesCount);
 
                 scenario.nodes.forEach((node, i) => {
                     switch (node.type) {
-
+                        default:
+                            job.log(`Non-trigger node ${node.type} (${node._id}) ignored`);
+                            break;
                     }
 
-                    nodesCount += 1;
                     job.progress(i, nodesCount);
                 });
 
@@ -64,5 +41,3 @@ exports.register = () => {
             })
             .catch(done);
     });
-
-};
