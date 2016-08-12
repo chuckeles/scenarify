@@ -5,7 +5,7 @@
 
 
 const app = require('./app/app');
-const kue = require('./kue');
+const kue = require('./kue/kue');
 
 
 /**

@@ -6,13 +6,13 @@
 
 const chalk = require('chalk');
 
-const queue = require('../workers/workers').queue;
+const queue = require('./workers').queue;
 
 
 /**
  * Create the job and add it to the queue.
  */
-exports.create = (scenarioId) => {
+exports.create = scenarioId => {
 
     return queue
         .create('stop-triggers', { scenarioId })
@@ -27,5 +27,21 @@ exports.create = (scenarioId) => {
                 console.log('Added new stop-triggers job');
             }
         });
+
+};
+
+
+/**
+ * Register the worker.
+ */
+exports.register = () => {
+
+    console.log('Registering the stop-triggers worker');
+
+    queue.process('stop-triggers', (job, done) => {
+        // TODO: For each trigger node, do the `Job.rangeByType`, find
+        //       the ones for this scenario and remove them
+        done();
+    });
 
 };

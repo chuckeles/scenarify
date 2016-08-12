@@ -4,8 +4,8 @@
  */
 
 
-const startTriggersJob = require('./start-triggers');
-const stopTriggersJob = require('./stop-triggers');
+const startTriggers = require('./start-triggers');
+const stopTriggers = require('./stop-triggers');
 
 
 /**
@@ -13,8 +13,8 @@ const stopTriggersJob = require('./stop-triggers');
  */
 exports.create = (scenarioId) => {
 
-    stopTriggersJob
+    stopTriggers
         .create(scenarioId)
-        .on('complete', startTriggersJob.create);
+        .on('complete', startTriggers.create);
 
 };

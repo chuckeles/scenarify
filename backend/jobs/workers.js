@@ -52,7 +52,10 @@ function setUpWorkers() {
                 return;
             }
 
-            require(`./${file}`).register(exports.queue);
+            const worker = require(`./${file}`);
+            if (worker.register) {
+                worker.register();
+            }
         });
 
 }
