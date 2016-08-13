@@ -13,9 +13,7 @@ const jobWorker = require('./../job-worker-base');
  */
 module.exports = jobWorker.create(
     'start-triggers',
-    scenarioId => {
-        return { scenarioId };
-    },
+    scenarioId => ({ scenarioId }),
     (job, done) => {
         job.log('Fetching the scenario');
 

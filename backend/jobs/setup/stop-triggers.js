@@ -15,9 +15,7 @@ const queue = require('./../workers').queue;
  */
 module.exports = jobWorker.create(
     'stop-triggers',
-    scenarioId => {
-        return { scenarioId };
-    },
+    scenarioId => ({ scenarioId }),
     (job, done) => {
         // TODO: Find all trigger jobs for the scenario and remove them
         done();
