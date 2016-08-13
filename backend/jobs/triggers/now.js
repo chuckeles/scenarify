@@ -12,9 +12,12 @@ const handleConnections = require('../connections/handle-connections');
  */
 module.exports = jobWorker.create(
     'now',
-    (scenarioId, nodeId) => ({ scenarioId, nodeId }),
     (job, done) => {
-        handleConnections.create(job.data.scenarioId, job.data.nodeId, [0]);
+        handleConnections.create({
+            scenarioId: job.data.scenarioId,
+            nodeId: job.data.nodeId,
+            activeConnectors: [0]
+        });
 
         job.log('Now triggered and started the scenario');
         done();

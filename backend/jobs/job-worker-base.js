@@ -13,7 +13,7 @@ const queue = require('./workers').queue;
  * Create the exports object that others shall use.
  * Use the provided functions for creating jobs and workers.
  */
-exports.create = (name, jobData, worker) => {
+exports.create = (name, worker) => {
 
     /**
      * Create the job and add it to the queue.
@@ -21,7 +21,7 @@ exports.create = (name, jobData, worker) => {
     const create = data => {
 
         return queue
-            .create(name, jobData && jobData(data))
+            .create(name, data)
             .attempts(10)
             .backoff({ type: 'exponential' })
             .save(err => {

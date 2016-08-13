@@ -17,7 +17,7 @@ module.exports = crudRouter
     .create(Scenario, {
         created: true,
         updated: true,
-        postHook: startTriggers.create,
-        putHook: restartTriggers.create,
-        deleteHook: stopTriggers.create
+        postHook: scenarioId => startTriggers.create({ scenarioId }),
+        putHook: scenarioId => restartTriggers.create({ scenarioId }),
+        deleteHook: scenarioId => stopTriggers.create({ scenarioId })
     });

@@ -15,7 +15,6 @@ const Scenario = require('../../models/scenario');
 module.exports = jobWorker
     .create(
         'handle-connections',
-        (scenarioId, nodeId, activeConnectors) => ({ scenarioId, nodeId, activeConnectors }),
         (job, done) => {
             job.log('Fetching the scenario');
 
@@ -24,7 +23,7 @@ module.exports = jobWorker
                 .then(scenario => {
                     job.log('Getting active connections');
 
-                    const connections = scenario.nodes.filter(connection => {
+                    const connections = scenario.connections.filter(connection => {
                         return connection.from.nodeId === job.data.nodeId &&
                             job.data.activeConnectors.includes(connection.from.connector);
                     });
@@ -40,6 +39,8 @@ module.exports = jobWorker
                                 break;
                         }
                     });
+
+                    done();
                 })
                 .catch(done);
         }

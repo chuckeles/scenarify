@@ -13,7 +13,6 @@ const jobWorker = require('./../job-worker-base');
  */
 module.exports = jobWorker.create(
     'start-triggers',
-    scenarioId => ({ scenarioId }),
     (job, done) => {
         job.log('Fetching the scenario');
 
@@ -28,7 +27,7 @@ module.exports = jobWorker.create(
                 scenario.nodes.forEach((node, i) => {
                     try {
                         require(`../triggers/${node.type}`)
-                            .create(scenario._id, node.id);
+                            .create({ scenarioId: scenario._id, nodeId: node.id });
                     }
                     catch (e) {
                         job.log(`Non-trigger node ${node.type} (${node.id}) ignored`);

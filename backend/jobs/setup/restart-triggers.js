@@ -14,7 +14,7 @@ const stopTriggers = require('./stop-triggers');
 exports.create = (scenarioId) => {
 
     stopTriggers
-        .create(scenarioId)
-        .on('complete', startTriggers.create);
+        .create({ scenarioId })
+        .on('complete', () => startTriggers.create({ scenarioId }));
 
 };

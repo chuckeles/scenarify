@@ -4,10 +4,7 @@
  */
 
 
-const kue = require('kue');
-
 const jobWorker = require('./../job-worker-base');
-const queue = require('./../workers').queue;
 
 
 /**
@@ -15,7 +12,6 @@ const queue = require('./../workers').queue;
  */
 module.exports = jobWorker.create(
     'stop-triggers',
-    scenarioId => ({ scenarioId }),
     (job, done) => {
         // TODO: Find all trigger jobs for the scenario and remove them
         done();
