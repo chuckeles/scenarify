@@ -32,7 +32,6 @@ module.exports = jobWorker.create(
 
                 job.log(`Delaying the execution for ${node.data.delay} milliseconds, waiting for Godot...`);
                 done();
-
             })
             .catch(done);
     }
