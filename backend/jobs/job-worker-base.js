@@ -18,10 +18,11 @@ exports.create = (name, worker) => {
     /**
      * Create the job and add it to the queue.
      */
-    const create = data => {
+    const create = (data, delay = 0) => {
 
         return queue
             .create(name, data)
+            .delay(delay)
             .attempts(10)
             .backoff({ type: 'exponential' })
             .save(err => {

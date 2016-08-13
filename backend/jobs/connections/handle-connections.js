@@ -21,6 +21,9 @@ module.exports = jobWorker
             Scenario
                 .findById(job.data.scenarioId)
                 .then(scenario => {
+                    job.log('Output of the previous node is');
+                    job.log(job.data.output);
+
                     job.log('Getting active connections');
 
                     const connections = scenario.connections.filter(connection => {
@@ -33,10 +36,14 @@ module.exports = jobWorker
                     connections.forEach(connection => {
                         const node = scenario.nodes.find(node => node.id === connection.to.nodeId);
 
-                        switch (node.type) {
-                            default:
-                                job.log(`Unrecognized node type ${node.type} ignored`);
-                                break;
+                        try {
+                            require(`../nodes/${node.type}`)
+                                .create({ scenarioId: job.data.scenarioId, nodeId: node.id, input: job.data.output });
+
+                            job.log(`Created a new job for node ${node.type} (${node.id})`)
+                        }
+                        catch (e) {
+                            job.log(`Unrecognized node ${node.type} (${node.id}) ignored`);
                         }
                     });
 
