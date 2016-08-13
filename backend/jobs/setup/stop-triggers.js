@@ -6,8 +6,8 @@
 
 const kue = require('kue');
 
-const jobWorker = require('./job-worker-base');
-const queue = require('./workers').queue;
+const jobWorker = require('./../job-worker-base');
+const queue = require('./../workers').queue;
 
 
 /**

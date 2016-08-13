@@ -45,17 +45,24 @@ function setUpWorkers() {
 
     console.log('Registering the workers');
 
-    fs
-        .readdirSync(__dirname)
-        .forEach(file => {
-            if (file === 'workers.js') {
-                return;
-            }
+    const registerFolder = (file, parents = '') => {
+        if (file === 'workers.js') {
+            return;
+        }
 
-            const worker = require(`./${file}`);
+        if (fs.statSync(`${__dirname}${parents}/${file}`).isDirectory()) {
+            fs.readdirSync(`${__dirname}${parents}/${file}`)
+              .forEach(innerFile => registerFolder(innerFile, `${parents}/${file}`));
+        }
+        else {
+            const worker = require(`.${parents}/${file}`);
             if (worker.register) {
                 worker.register();
             }
-        });
+        }
+    };
+
+    fs.readdirSync(__dirname)
+      .forEach(file => registerFolder(file, ''));
 
 }

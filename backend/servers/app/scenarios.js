@@ -5,9 +5,9 @@
 
 const Scenario = require('../../models/scenario');
 const crudRouter = require('../crud-router');
-const startTriggers = require('../../jobs/start-triggers');
-const restartTriggers = require('../../jobs/restart-triggers');
-const stopTriggers = require('../../jobs/stop-triggers');
+const startTriggers = require('../../jobs/setup/start-triggers');
+const restartTriggers = require('../../jobs/setup/restart-triggers');
+const stopTriggers = require('../../jobs/setup/stop-triggers');
 
 
 /**

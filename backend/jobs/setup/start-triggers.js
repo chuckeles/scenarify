@@ -4,8 +4,8 @@
  * jobs for them.
  */
 
-const Scenario = require('../models/scenario');
-const jobWorker = require('./job-worker-base');
+const Scenario = require('../../models/scenario');
+const jobWorker = require('./../job-worker-base');
 
 
 /**
