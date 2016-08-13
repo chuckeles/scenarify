@@ -43,7 +43,7 @@ function setUpKue() {
  */
 function setUpWorkers() {
 
-    console.log('Registering the workers');
+    console.log('Registering the', chalk.blue('workers'));
 
     const registerFolder = (file, parents = '') => {
         if (file === 'workers.js') {
