@@ -28,10 +28,10 @@ module.exports = jobWorker.create(
                 scenario.nodes.forEach((node, i) => {
                     try {
                         require(`../triggers/${node.type}`)
-                            .create(scenario._id, node._id);
+                            .create(scenario._id, node.id);
                     }
                     catch (e) {
-                        job.log(`Non-trigger node ${node.type} (${node._id}) ignored`);
+                        job.log(`Non-trigger node ${node.type} (${node.id}) ignored`);
                     }
 
                     job.progress(i, nodesCount);

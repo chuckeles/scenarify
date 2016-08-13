@@ -17,6 +17,10 @@ const schema = mongoose.Schema({
     created: Date,
     updated: Date,
     nodes: [{
+        id: {
+            type: Number,
+            required: true
+        },
         type: {
             type: String,
             required: true
@@ -39,7 +43,7 @@ const schema = mongoose.Schema({
             },
             connector: {
                 type: Number,
-                default: 1
+                default: 0
             }
         },
         to: {
@@ -52,7 +56,11 @@ const schema = mongoose.Schema({
                 default: 0
             }
         }
-    }]
+    }],
+    lastNodeId: {
+        type: Number,
+        default: 0
+    }
 });
 
 

@@ -32,7 +32,7 @@ module.exports = jobWorker
                     job.log(`Found ${connections.length} active connections`);
 
                     connections.forEach(connection => {
-                        const node = scenario.nodes.find(node => node._id === connection.to.nodeId);
+                        const node = scenario.nodes.find(node => node.id === connection.to.nodeId);
 
                         switch (node.type) {
                             default:
