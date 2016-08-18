@@ -25,8 +25,8 @@ exports.start = port => {
         next();
     });
 
-    app.use(appRouter);
     app.use('/api', apiRouter);
+    app.use(appRouter);
 
     app.listen(port, () => {
         console.log(chalk.blue('App server'), 'listening on port', port);

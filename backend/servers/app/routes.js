@@ -3,11 +3,15 @@
  */
 
 
-const Router = require('express').Router;
+const express = require('express');
+const Router = express.Router;
 
 
 /**
  * App router.
  */
 module.exports = Router()
-    .get('/', (req, res) => res.send('app is not created yet'));
+    .use('/static', express.static(`${process.cwd()}/frontend/build`))
+    .get('*', (req, res) => {
+        res.sendFile(`${process.cwd()}/frontend/index.html`);
+    });
