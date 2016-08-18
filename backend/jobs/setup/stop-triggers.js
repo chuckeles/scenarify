@@ -4,7 +4,8 @@
  */
 
 
-const jobWorker = require('./../job-worker-base');
+const jobWorker = require('../job-worker-base');
+const redis = require('../../databases/redis');
 
 
 /**
@@ -13,6 +14,16 @@ const jobWorker = require('./../job-worker-base');
 module.exports = jobWorker.create(
     'stop-triggers',
     (job, done) => {
-        // TODO: Find all trigger jobs for the scenario and remove them
-        done();
+        job.log('Removing trigger jobs and listeners');
+
+        Promise
+            .all([
+                redis.db.del(`webhooks:${job.data.scenarioId}`),
+                redis.db.srem(`webhooks`, job.data.scenarioId)
+            ])
+            .then(() => {
+                job.log('Removed all Redis listeners');
+                done();
+            })
+            .catch(done);
     });
