@@ -20,15 +20,15 @@ const argv = yargs
         type: 'number',
         default: 3000
     })
-    .option('webhooks', {
-        describe: 'port for incoming webhooks',
-        type: 'number',
-        default: 4000
-    })
     .option('kue', {
         describe: 'port for the Kue UI',
         type: 'number',
         default: 3001
+    })
+    .option('webhooks', {
+        describe: 'port for incoming webhooks',
+        type: 'number',
+        default: 3002
     })
     .alias('v', 'version')
     .alias('h', 'help')

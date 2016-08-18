@@ -6,6 +6,7 @@
 
 const app = require('./app/app');
 const kue = require('./kue/kue');
+const webhooks = require('./webhooks/webhooks');
 
 
 /**
@@ -17,5 +18,6 @@ exports.startAll = (argv) => {
 
     app.start(argv.app);
     kue.start(argv.kue);
+    webhooks.start(argv.webhooks);
 
 };

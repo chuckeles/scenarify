@@ -9,7 +9,7 @@ const kue = require('kue');
 
 
 /**
- * Start the app server on a port.
+ * Start the kue server on a port.
  */
 exports.start = port => {
 
