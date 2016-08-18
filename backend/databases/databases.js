@@ -4,6 +4,7 @@
 
 
 const mongo = require('./mongo');
+const redis = require('./redis');
 
 
 /**
@@ -13,6 +14,9 @@ exports.connectAll = () => {
 
     console.log('Connecting databases');
 
-    return mongo.connect();
+    return Promise.all([
+        mongo.connect(),
+        redis.connect()
+    ]);
 
 };

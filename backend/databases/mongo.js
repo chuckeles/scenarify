@@ -23,6 +23,7 @@ mongoose.Promise = Promise;
  * Connect to the database.
  */
 exports.connect = () => {
+
     return mongoose
         .connect(url)
         .then(db => {
@@ -35,4 +36,5 @@ exports.connect = () => {
 
             return Promise.reject(err);
         });
+
 };
