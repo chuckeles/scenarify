@@ -18,7 +18,7 @@
     "server": "node backend",
     "backdev": "nodemon backend -w backend",
     "build": "webpack",
-    "frontdev": "webpack-dev-server"
+    "frontdev": "webpack-dev-server --hot --inline"
   },
   "dependencies": {
     "babel-core": "^6.14.0",

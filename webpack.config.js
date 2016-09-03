@@ -20,8 +20,6 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         progress: true,
-        hot: true,
-        inline: true,
         contentBase: path.join(process.cwd(), 'frontend'),
         proxy: {
             '*': {
