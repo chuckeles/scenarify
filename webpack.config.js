@@ -54,6 +54,11 @@ module.exports = {
             },
 
             {
+                test: /\.css/,
+                loaders: ['style', 'css']
+            },
+
+            {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
