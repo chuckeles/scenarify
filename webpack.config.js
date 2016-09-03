@@ -9,10 +9,10 @@ const path = require('path');
 
 module.exports = {
 
-    entry: './frontend/scripts/app.js',
+    entry: './frontend/scripts/index.js',
     output: {
         path: './frontend/build',
-        publicPath: '/static',
+        publicPath: '/static/',
         filename: 'scripts.js'
     },
 
@@ -32,12 +32,25 @@ module.exports = {
     resolveLoader: {
         root: path.join(process.cwd(), 'node_modules'),
     },
+    resolve: {
+        extensions: ['', '.js', '.vue']
+    },
     module: {
         loaders: [
 
             {
                 test: /\.vue$/,
                 loader: 'vue'
+            },
+
+            {
+                test: /\.(slm|slim)/,
+                loaders: ['html', 'slm']
+            },
+
+            {
+                test: /\.(sass|scss)/,
+                loaders: ['style', 'css', 'sass']
             },
 
             {

@@ -5,6 +5,7 @@
 
 
 import Vue from 'vue';
+import App from '../components/app/app';
 
 
 /**
@@ -13,6 +14,6 @@ import Vue from 'vue';
 new Vue({
     el: 'body',
     components: {
-
+        app: App
     }
 });
