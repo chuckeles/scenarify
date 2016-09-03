@@ -9,6 +9,7 @@ import Vue from 'vue';
 import App from '../components/app/app';
 
 import * as normalize from 'normalize.css';
+import * as base from '../styles/base';
 
 
 /**

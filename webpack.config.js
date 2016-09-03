@@ -33,7 +33,7 @@ module.exports = {
         root: path.join(process.cwd(), 'node_modules'),
     },
     resolve: {
-        extensions: ['', '.js', '.vue']
+        extensions: ['', '.js', '.sass', '.vue']
     },
     module: {
         loaders: [
