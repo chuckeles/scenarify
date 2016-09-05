@@ -1,5 +1,6 @@
 /**
  * The base styling for the app, basically a reset.
+ * Uses colors and rules based on Material design.
  */
 
 
@@ -9,6 +10,8 @@
 body
     background-color: $color-background-backdrop
     color: $color-dark-secondary
+    font-size: 14px
+    font-family: Roboto, sans-serif
 
 
 @for $i from 1 through 6
@@ -24,3 +27,8 @@ a
     &:focus,
     &:active
         text-decoration: underline
+
+code,
+pre,
+tt
+    font-family: 'Roboto Mono', monospace
