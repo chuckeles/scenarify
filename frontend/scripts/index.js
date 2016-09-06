@@ -6,6 +6,8 @@
 
 
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+
 import App from '../components/app/app';
 
 import normalize from 'normalize.css';
@@ -13,11 +15,19 @@ import base from '../styles/base';
 
 
 /**
- * Create Vue instance.
+ * Use the Vue router.
  */
-new Vue({
-    el: 'body',
-    components: {
-        app: App
-    }
+Vue.use(VueRouter);
+
+/**
+ * Create the Vue router.
+ */
+const router = new VueRouter({
+    hashbang: false,
+    history: true
 });
+
+/**
+ * Start the router.
+ */
+router.start(App, '#app');
