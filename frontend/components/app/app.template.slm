@@ -1,10 +1,1 @@
-h1 Testing
-h2 Headers
-h3 And stuff
-
-p Lorem impsum yada yada.
-
-h3 Text and links
-
-p This is how the text looks like.
-a href='' Here's a link.
+router-view

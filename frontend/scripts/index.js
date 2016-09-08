@@ -9,6 +9,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import App from '../components/app/app';
+import routes from './routes';
 
 import normalize from 'normalize.css';
 import base from '../styles/base';
@@ -26,6 +27,11 @@ const router = new VueRouter({
     hashbang: false,
     history: true
 });
+
+/**
+ * Map the routes.
+ */
+routes.map(router);
 
 /**
  * Start the router.
