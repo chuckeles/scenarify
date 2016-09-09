@@ -3,8 +3,6 @@
  */
 
 
-import VueRouter from 'vue-router';
-
 import Home from '../components/home/home';
 
 /**

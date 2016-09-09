@@ -1,0 +1,2 @@
+section.full-content-box
+    slot
