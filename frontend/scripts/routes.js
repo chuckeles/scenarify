@@ -4,6 +4,7 @@
 
 
 import Home from '../components/home/home';
+import Login from '../components/login/login';
 
 /**
  * Map the top-level routes to components.
@@ -13,6 +14,9 @@ export default {
         router.map({
             '/': {
                 component: Home
+            },
+            '/login': {
+                component: Login
             }
         });
     }
